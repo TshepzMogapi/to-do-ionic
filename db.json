@@ -1,0 +1,14 @@
+{
+    "todos": [
+      {
+        "id": 1,
+        "title": "Simulate endpoint ",
+        "description": "My JSON Server Fake Online REST server for teams",
+        "status": 1,
+        "dueDate": "2012-04-23T18:25:43.511Z"
+      }
+    ],
+    "profile": {
+      "name": "typicode"
+    }
+  }
