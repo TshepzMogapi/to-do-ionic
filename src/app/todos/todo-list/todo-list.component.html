@@ -1,0 +1,29 @@
+<ion-content>
+
+    <ion-row>
+        <ion-col>
+          ion-col
+        </ion-col>
+        <ion-col>
+            <ion-fab  (click)="createTodo()">
+                <ion-fab-button>
+                  <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+              </ion-fab>
+        </ion-col>
+        
+      </ion-row>
+  
+
+      <ion-grid>
+        <ag-grid-angular
+        style="width: 500px; height: 500px;"
+        class="ag-theme-alpine"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        >
+    </ag-grid-angular>
+
+      </ion-grid>
+
+</ion-content>

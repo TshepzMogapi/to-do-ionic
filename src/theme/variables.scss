@@ -2,6 +2,11 @@
 // http://ionicframework.com/docs/theming/
 
 /** Ionic CSS Variables **/
+
+.picker-wrapper.sc-ion-picker-md {
+  bottom: auto;
+  top: 40%;
+}
 :root {
   /** primary **/
   --ion-color-primary: #3880ff;
@@ -76,7 +81,7 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: medium) {
   /*
    * Dark Colors
    * -------------------------------------------
