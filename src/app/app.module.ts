@@ -10,11 +10,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HomePageModule } from './home/home.module';
 import { TodoDetailComponent } from './todo-detail/todo-detail.component';
+import { TodoService } from './api/todo.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, TodoDetailComponent],
   entryComponents: [],
-  imports: [ BrowserModule, IonicModule.forRoot(), AppRoutingModule, HomePageModule],
+  imports: [ BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, HomePageModule],
   providers: [
     StatusBar,
     SplashScreen,

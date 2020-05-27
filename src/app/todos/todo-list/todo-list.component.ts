@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from '@ionic/angular';
 import { TodoDetailComponent } from 'src/app/todo-detail/todo-detail.component';
+import { TodoService } from 'src/app/api/todo.service';
 
 @Component({
   selector: "app-todo-list",
@@ -15,15 +16,20 @@ export class TodoListComponent implements OnInit {
   ];
 
   rowData = [
-    { title: "Add Service", status: "new", dueDate: 35000 },
-    { title: "Install Dependencies", status: "in progress", dueDate: 32000 },
-    { title: "Serve app", status: "blocked", dueDate: 72000 },
+    // { title: "Add Service", status: "new", dueDate: 35000 },
+    // { title: "Install Dependencies", status: "in progress", dueDate: 32000 },
+    // { title: "Serve app", status: "blocked", dueDate: 72000 },
   ];
 
-  constructor(public modalController: ModalController) {}
+  constructor(public modalController: ModalController,
+    private todoService: TodoService) {}
 
-  ngOnInit() {}
-  
+  ngOnInit() {
+    this.todoService.getTodos().subscribe(res => {
+      this.rowData = res;
+    });
+  }
+
   createTodo() {
     this.presentModal();
   }
