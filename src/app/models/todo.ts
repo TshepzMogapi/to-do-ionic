@@ -1,11 +1,12 @@
 export class Todo {
     title: string;
     description: string;
-    status: Status;
+    status: number;
+    blockers: string;
     dueDate: Date;
 }
 
-enum Status {
+export enum Status {
     New = 1,
     InProgress,
     Blocked,

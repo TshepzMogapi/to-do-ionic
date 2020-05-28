@@ -1,56 +1,89 @@
 <ion-header translucent>
+
   <ion-toolbar>
     <ion-title>Todo Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+
+
 </ion-header>
 
 <ion-content fullscreen>
-  <form>
+  <form [formGroup]="todoForm">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
 
       <ion-item>
         <ion-label position="floating">Title</ion-label>
-        <ion-input></ion-input>
+        <ion-input formControlName="title"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Description</ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea formControlName="description"></ion-textarea>
       </ion-item>
 
       <ion-item>
         <ion-label>Status</ion-label>
-        <ion-select placeholder="Select One">
-          <ion-select-option value="n">New</ion-select-option>
-          <ion-select-option value="i">In Progress</ion-select-option>
+        <ion-select placeholder="Select One" formControlName="status">
+          <ion-select-option *ngFor="let status of statuses;"
+          [disabled]="status ===  statusEnum['3'] && todos.length < 1"
+          >{{status}}</ion-select-option>
         </ion-select>
       </ion-item>
 
-
-      <ion-item>
+      <!-- *ngIf="todoForm['controls'].status.value != statusEnum.Blocked" -->
+      <ion-item *ngIf="todoForm['controls'].status.value === statusEnum['3']">
         <ion-label>Blocking todos</ion-label>
-        <ion-select multiple="true" cancelText="Cancel" okText="Okay">
-
-          
-          <ion-select-option *ngFor="let item of [1,2,3,4,5,6,7,8,8,9,10]"
-          value="{{item}}"
-          >{{item}}</ion-select-option>
-          
-          
+        <ion-select 
+        formControlName="blockers"
+        multiple="true" cancelText="Cancel" okText="Okay">
+          <ion-select-option 
+          value="{{todo.id}}"
+          *ngFor="let todo of todos"
+          >{{todo.title}}</ion-select-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Due Date</ion-label>
-        <ion-datetime value="1990-02-19" 
+        <ion-datetime
+        formControlName="dueDate"
+        value="1990-02-19" 
         displayFormat="MMM DD, YYYY HH:mm"
         placeholder="Select Date"></ion-datetime>
       </ion-item>
 
     </ion-list>
 
-    <div class="ion-padding">
-      <ion-button expand="block" type="submit" class="ion-no-margin">Create</ion-button>
+    <div class="ion-padding" *ngIf="isNew">
+      <ion-button 
+      [disabled]="todoForm.invalid"
+      (click)="createToDo()"
+      expand="block" type="submit" class="ion-no-margin">Create</ion-button>
+    </div>
+
+    <div class="ion-padding" *ngIf="!isNew">
+      <ion-button 
+      [disabled]="todoForm.pristine"
+      (click)="updateToDo()"
+      expand="block" type="submit" class="ion-no-margin">Update</ion-button>
+    </div>
+
+    <div class="ion-padding" *ngIf="!isNew">
+      <ion-button 
+      [disabled]="dependencies.length > 0"
+      (click)="deleteToDo()"
+      expand="block" color="danger" class="ion-no-margin">Delete</ion-button>
+    </div>
+
+    <div  class="ion-padding" style="text-align: center;" *ngIf="dependencies.length > 0">
+      <ion-text color="danger">
+       <span> {{dependencies.length}} todo(s) depend on this one, Delete Disabled!</span>
+      </ion-text>
     </div>
 
   </form>
